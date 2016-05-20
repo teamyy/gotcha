@@ -9,3 +9,8 @@
 class GotchaPipeline(object):
     def process_item(self, item, spider):
         return item
+
+class PrintPipeline(object):
+    def process_item(self, item, spider):
+        print item
+        return item

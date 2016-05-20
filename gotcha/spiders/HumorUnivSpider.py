@@ -19,12 +19,10 @@ class HumorUnivSpider(CrawlSpider):
     def parse_pds(self, response):
         # self.logger.info('Hi, this is an item page! %s', response.url)
         item = GotchaItem()
-        item['title'] = response.css('#ai_cm_title::text').extract()
-        item['content'] = response.css('#ai_cm_content::text').extract()
-        item['writer'] = response.css('#if_wrt .hu_nick_txt::text').extract()
-        item['created_at'] = response.css('#if_date:first-child::text').extract()
+        item['title'] = u"".join(response.xpath('//span[@id="ai_cm_title"]//text()').extract()).strip()
+        item['content'] = u"".join(response.xpath('//span[@id="ai_cm_content"]//text()').extract()).strip()
+        item['writer'] = u"".join(response.xpath('//div[@id="if_wrt"]//span[contains(@class, "hu_nick_txt")]//text()').extract()).strip()
+        item['created_at'] = u"".join(response.xpath('//div[@id="if_date"]/span[1]//text()').extract()).strip()
         item['url'] = response.url
         item['category'] = 'humor'
-
-        self.logger.info(str(item))
         return item

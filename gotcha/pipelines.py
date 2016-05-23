@@ -61,12 +61,14 @@ class MySqlPipeline(object):
         return item
 
     def insert_mysql(self):
+        query_template = u"""INSERT INTO articles (title, content, writer, created_at, url, category)
+            VALUES (%s, %s, %s, %s, %s, %s)
+            ON DUPLICATE KEY UPDATE title=VALUES(title), content=VALUES(content), created_at=VALUES(created_at), url=VALUES(url), category=VALUES(category)"""
         try:
-            self.cursor.executemany("""INSERT INTO articles (title, content, writer, created_at, url, category)
-                        VALUES (%s, %s, %s, %s, %s, %s)""", self.gotcha_item_list)
+            self.cursor.executemany(query_template, self.gotcha_item_list)
             self.connection.commit()
 
-            logger.info('Success to store %d rows')
+            logger.info('Success to store %d rows', len(self.gotcha_item_list))
             del self.gotcha_item_list[:]
 
         except MySQLdb.Error as e:

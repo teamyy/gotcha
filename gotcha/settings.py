@@ -63,6 +63,7 @@ CONCURRENT_REQUESTS_PER_IP = 16
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     'gotcha.pipelines.PrintPipeline': 0,
+    'gotcha.pipelines.PotsuNetAdminArticleDropPipeline': 100,
     'gotcha.pipelines.MySqlPipeline': 900,
 }
 

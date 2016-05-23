@@ -63,6 +63,7 @@ CONCURRENT_REQUESTS_PER_IP = 16
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     'gotcha.pipelines.PotsuNetAdminArticleDropPipeline': 100,
+    'gotcha.pipelines.MySqlPipeline': 900,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -83,3 +84,11 @@ AUTOTHROTTLE_DEBUG = False
 #HTTPCACHE_DIR='httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES=[]
 #HTTPCACHE_STORAGE='scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+
+# Database connection info
+MYSQL_HOST = 'apolloners.goanygate.com'
+MYSQL_PORT = 3306
+MYSQL_USERNAME = 'gotcha'
+MYSQL_PASSWORD = 'gotchapw'
+MYSQL_SCHEMA = 'gotcha'

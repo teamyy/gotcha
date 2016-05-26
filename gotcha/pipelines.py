@@ -6,12 +6,24 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import logging
 from urlparse import urlparse
+
 from scrapy.exceptions import DropItem
+import MySQLdb
 
 logger = logging.getLogger('gotchaLogger')
 
-class GotchaPipeline(object):
+
+class NecessaryFieldEmptyDropPipeline(object):
     def process_item(self, item, spider):
+        if not item['title']:
+            raise DropItem("An article was dropped because 'title' field is empty (url: %s)" % item['url'])
+        if not item['content']:
+            raise DropItem("An article was dropped because 'content' field is empty (url: %s)" % item['url'])
+        if not item['writer']:
+            raise DropItem("An article was dropped because 'writer' field is empty (url: %s)" % item['url'])
+        if not item['created_at']:
+            raise DropItem("An article was dropped because 'created_at' field is empty (url: %s)" % item['url'])
+
         return item
 
 
@@ -24,9 +36,6 @@ class PotsuNetAdminArticleDropPipeline(object):
             raise DropItem("Admin's article in potsu.net was dropped (url: %s)" % item['url'])
 
         return item
-
-
-import MySQLdb
 
 
 class MySqlPipeline(object):

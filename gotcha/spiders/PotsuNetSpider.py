@@ -23,7 +23,7 @@ class PotsuNetSpider(CrawlSpider):
         item['title'] = u"".join(response.xpath('//div[contains(@class, "top_area")]//h1//text()').extract()).strip()
         item['content'] = u"".join(response.xpath('//div[re:test(@class, "document_.+")]//text()').extract()).strip()
         item['writer'] = u"".join(response.xpath('//div[contains(@class, "rd_hd")]//a[re:test(@class, "member_.+")]//text()').extract()).strip()
-        item['created_at'] = u"".join(response.xpath('//div[contains(@class, "rd_hd")]//span[contains(@class, "date")]//text()').extract()).strip()
+        item['writed_at'] = u"".join(response.xpath('//div[contains(@class, "rd_hd")]//span[contains(@class, "date")]//text()').extract()).strip()
         item['url'] = response.url
         item['category'] = 'humor'
         return item

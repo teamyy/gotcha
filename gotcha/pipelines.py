@@ -21,8 +21,8 @@ class NecessaryFieldEmptyDropPipeline(object):
             raise DropItem("An article was dropped because 'content' field is empty (url: %s)" % item['url'])
         if not item['writer']:
             raise DropItem("An article was dropped because 'writer' field is empty (url: %s)" % item['url'])
-        if not item['created_at']:
-            raise DropItem("An article was dropped because 'created_at' field is empty (url: %s)" % item['url'])
+        if not item['writed_at']:
+            raise DropItem("An article was dropped because 'writed_at' field is empty (url: %s)" % item['url'])
 
         return item
 
@@ -70,7 +70,7 @@ class MySqlPipeline(object):
 
     #  수집된 item과 각 item을 수집할 때 사용한 spider를 파라미터로 받음.
     def process_item(self, item, spider):
-        self.gotcha_item_list.append((item['title'], item['content'], item['writer'], item['created_at'], item['url'], item['category']))
+        self.gotcha_item_list.append((item['title'], item['content'], item['writer'], item['writed_at'], item['url'], item['category']))
 
         if len(self.gotcha_item_list) < self.MAX_LIST_SIZE :
             return item
@@ -78,9 +78,9 @@ class MySqlPipeline(object):
         return item
 
     def insert_mysql(self):
-        query_template = u"""INSERT INTO articles (title, content, writer, created_at, url, category)
+        query_template = u"""INSERT INTO articles (title, content, writer, writed_at, url, category)
             VALUES (%s, %s, %s, %s, %s, %s)
-            ON DUPLICATE KEY UPDATE title=VALUES(title), content=VALUES(content), created_at=VALUES(created_at), url=VALUES(url), category=VALUES(category)"""
+            ON DUPLICATE KEY UPDATE title=VALUES(title), content=VALUES(content), writed_at=VALUES(writed_at), url=VALUES(url), category=VALUES(category)"""
         try:
             self.cursor.executemany(query_template, self.gotcha_item_list)
             self.connection.commit()

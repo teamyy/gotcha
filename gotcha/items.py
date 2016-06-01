@@ -12,6 +12,6 @@ class GotchaItem(scrapy.Item):
     title = scrapy.Field()
     content = scrapy.Field()
     writer = scrapy.Field()
-    created_at = scrapy.Field()
+    writed_at = scrapy.Field()
     url = scrapy.Field()
     category = scrapy.Field()

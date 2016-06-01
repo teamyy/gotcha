@@ -10,6 +10,8 @@
 # Dump of table article_images
 # ------------------------------------------------------------
 
+DROP TABLE IF EXISTS `article_images`;
+
 CREATE TABLE `article_images` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `article_id` bigint(20) unsigned DEFAULT NULL,
@@ -17,21 +19,21 @@ CREATE TABLE `article_images` (
   `modified_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `article_id` (`article_id`),
-  KEY `image_url` (`image_url`(191)),
+  KEY `image_url` (`image_url`),
   CONSTRAINT `article_images_ibfk_1` FOREIGN KEY (`article_id`) REFERENCES `articles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
 DELIMITER ;;
 /*!50003 SET SESSION SQL_MODE="" */;;
-/*!50003 CREATE */ /*!50017 DEFINER=`gotcha-admin`@`%` */ /*!50003 TRIGGER `insert_article_images_history` AFTER INSERT ON `article_images` FOR EACH ROW BEGIN
-    INSERT INTO article_images_history (article_id, image_url)
-    VALUES (NEW.article_id, NEW.image_url);
+  /*!50003 CREATE */ /*!50017 DEFINER=`gotcha-admin`@`%` */ /*!50003 TRIGGER `insert_article_images_history` AFTER INSERT ON `article_images` FOR EACH ROW BEGIN
+  INSERT INTO article_images_history (article_id, image_url)
+  VALUES (NEW.article_id, NEW.image_url);
 END */;;
 /*!50003 SET SESSION SQL_MODE="" */;;
-/*!50003 CREATE */ /*!50017 DEFINER=`gotcha-admin`@`%` */ /*!50003 TRIGGER `update_article_images_history` AFTER UPDATE ON `article_images` FOR EACH ROW BEGIN
-    INSERT INTO article_images_history (article_id, image_url)
-    VALUES (NEW.article_id, NEW.image_url);
+  /*!50003 CREATE */ /*!50017 DEFINER=`gotcha-admin`@`%` */ /*!50003 TRIGGER `update_article_images_history` AFTER UPDATE ON `article_images` FOR EACH ROW BEGIN
+  INSERT INTO article_images_history (article_id, image_url)
+  VALUES (NEW.article_id, NEW.image_url);
 END */;;
 DELIMITER ;
 /*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;
@@ -39,6 +41,8 @@ DELIMITER ;
 
 # Dump of table article_images_history
 # ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `article_images_history`;
 
 CREATE TABLE `article_images_history` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -52,6 +56,8 @@ CREATE TABLE `article_images_history` (
 
 # Dump of table articles
 # ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `articles`;
 
 CREATE TABLE `articles` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -72,14 +78,14 @@ CREATE TABLE `articles` (
 
 DELIMITER ;;
 /*!50003 SET SESSION SQL_MODE="" */;;
-/*!50003 CREATE */ /*!50017 DEFINER=`gotcha-admin`@`%` */ /*!50003 TRIGGER `insert_articles_history` AFTER INSERT ON `articles` FOR EACH ROW BEGIN
-    INSERT INTO articles_history (title, content, writer, url, category, writed_at)
-    VALUES (NEW.title, NEW.content, NEW.writer, NEW.url, NEW.category, NEW.writed_at);
+  /*!50003 CREATE */ /*!50017 DEFINER=`gotcha-admin`@`%` */ /*!50003 TRIGGER `insert_articles_history` AFTER INSERT ON `articles` FOR EACH ROW BEGIN
+  INSERT INTO articles_history (title, content, writer, url, category, writed_at)
+  VALUES (NEW.title, NEW.content, NEW.writer, NEW.url, NEW.category, NEW.writed_at);
 END */;;
 /*!50003 SET SESSION SQL_MODE="" */;;
-/*!50003 CREATE */ /*!50017 DEFINER=`gotcha-admin`@`%` */ /*!50003 TRIGGER `update_articles_history` AFTER UPDATE ON `articles` FOR EACH ROW BEGIN
-    INSERT INTO articles_history (title, content, writer, url, category, writed_at)
-    VALUES (NEW.title, NEW.content, NEW.writer, NEW.url, NEW.category, NEW.writed_at);
+  /*!50003 CREATE */ /*!50017 DEFINER=`gotcha-admin`@`%` */ /*!50003 TRIGGER `update_articles_history` AFTER UPDATE ON `articles` FOR EACH ROW BEGIN
+  INSERT INTO articles_history (title, content, writer, url, category, writed_at)
+  VALUES (NEW.title, NEW.content, NEW.writer, NEW.url, NEW.category, NEW.writed_at);
 END */;;
 DELIMITER ;
 /*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;
@@ -88,13 +94,15 @@ DELIMITER ;
 # Dump of table articles_history
 # ------------------------------------------------------------
 
+DROP TABLE IF EXISTS `articles_history`;
+
 CREATE TABLE `articles_history` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `title` text NOT NULL,
   `content` longtext NOT NULL,
   `writer` varchar(64) NOT NULL DEFAULT '',
-  `url` varchar(240) NOT NULL DEFAULT '',
-  `category` varchar(32) NOT NULL DEFAULT '',
+  `url` varchar(240) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `category` varchar(32) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `writed_at` datetime NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)

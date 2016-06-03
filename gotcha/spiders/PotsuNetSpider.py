@@ -26,5 +26,5 @@ class PotsuNetSpider(CrawlSpider):
         item['writed_at'] = u"".join(response.xpath('//div[contains(@class, "rd_hd")]//span[contains(@class, "date")]//text()').extract()).strip()
         item['url'] = unicode(response.url)
         item['category'] = u'humor'
-        item['image_urls'] = []
+        item['image_urls'] = response.xpath('//div[re:test(@class, "document_.+")]//img/@src').extract()
         return item

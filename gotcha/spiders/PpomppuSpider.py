@@ -28,5 +28,5 @@ class PpomppuSpider(CrawlSpider):
                     .re(u'등록일: (\d{4}-\d{2}-\d{2} \d{2}:\d{2})')).strip()
         item['url'] = unicode(response.url)
         item['category'] = u'humor'
-        item['image_urls'] = []
+        item['image_urls'] = response.xpath('//td[@id="realArticleView"]//img/@src').extract()
         return item

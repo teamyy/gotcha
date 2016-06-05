@@ -189,4 +189,5 @@ local.properties
 # TeXlipse plugin
 .texlipse
 
-
+# scrapy module
+.scrapy

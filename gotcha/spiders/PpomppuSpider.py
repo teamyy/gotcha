@@ -16,7 +16,7 @@ class PpomppuSpider(CrawlSpider):
     ]
 
     rules = (
-        Rule(LinkExtractor(allow=('/zboard/view\.php\?.*id=humor.*&.*no=[0-9]+.*', )), callback='parse_humor'),
+        Rule(LinkExtractor(allow=('/zboard/view\.php\?.*id=humor.*&.*no=[0-9]+.*', )), callback='parse_humor', follow=True),
     )
 
     def parse_humor(self, response):

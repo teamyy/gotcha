@@ -85,8 +85,7 @@ MYSQL_USERNAME = 'gotcha'
 MYSQL_PASSWORD = 'gotchapw'
 MYSQL_SCHEMA = 'gotcha'
 
-# LOG_FILE = 'logs/gotcha.log'
-LOG_FILE = None
+LOG_FILE = 'logs/gotcha.log'
 LOG_ENABLED = True
 LOG_ENCODING = 'UTF-8'
 LOG_LEVEL = 'INFO'

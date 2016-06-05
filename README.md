@@ -12,12 +12,4 @@ _If 'setuptools' is not installed:_
 python externs/ez_setup.py -U setuptools
 ```
 
-If you just want to install only the dependency libraries
-```
-pip install -r requirements.txt
-```
-
-_If 'pip' is not installed:_
-```
-python externs/get-pip.py && pip install -U pip
-```
+Note, Only **guarantee** success to install **'linux'** system and **'debian', 'redhat', 'centos'** linux distribution. And install system libraries too using 'apt-get' or 'yum'

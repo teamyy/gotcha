@@ -24,6 +24,7 @@ class HumorUnivSpider(CrawlSpider):
         item['content'] = u"".join(response.xpath('//span[@id="ai_cm_content"]//text()').extract()).strip()
         item['writer'] = u"".join(response.xpath('//div[@id="if_wrt"]//span[contains(@class, "hu_nick_txt")]//text()').extract()).strip()
         item['writed_at'] = u"".join(response.xpath('//div[@id="if_date"]/span[1]//text()').extract()).strip()
-        item['url'] = response.url
-        item['category'] = 'humor'
+        item['url'] = unicode(response.url)
+        item['category'] = u'humor'
+        item['image_urls'] = response.xpath('//div[@id="cnts"]//div[contains(@id, "wrap_img")]//img/@src').extract()
         return item

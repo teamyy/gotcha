@@ -24,7 +24,7 @@ class TodayHumorSpider(CrawlSpider):
         item['content'] = u"".join(response.xpath('//div[@id="containerInner"]//div[contains(@class, "viewContent")]//text()').extract()).strip()
         item['writer'] = u"".join(response.xpath('//div[@id="containerInner"]//div[contains(@class, "writerInfoContents")]/div[2]//font//text()').extract()).strip()
         item['writed_at'] = u"{}-{}-{} {}:{}:{}".format(*response.xpath('//div[@id="containerInner"]//div[contains(@class, "writerInfoContents")]/div[7]//text()').re(u'\d+'))
-        item['url'] = response.url
-        item['category'] = 'humor'
-
+        item['url'] = unicode(response.url)
+        item['category'] = u'humor'
+        item['image_urls'] = response.xpath('//div[@id="containerInner"]//div[contains(@class, "viewContent")]//img/@src').extract()
         return item

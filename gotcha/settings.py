@@ -55,9 +55,12 @@ CONCURRENT_REQUESTS_PER_IP = 16
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
-#EXTENSIONS = {
-#    'scrapy.telnet.TelnetConsole': None,
-#}
+EXTENSIONS = {
+    'scrapy.extensions.logstats.LogStats': 100,
+    'scrapy.extensions.corestats.CoreStats': 200,
+    'scrapy.extensions.memusage.MemoryUsage': 300,
+    'scrapy.extensions.debug.StackTraceDump': 400,
+}
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
@@ -86,10 +89,27 @@ AUTOTHROTTLE_DEBUG = False
 #HTTPCACHE_IGNORE_HTTP_CODES=[]
 #HTTPCACHE_STORAGE='scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-
 # Database connection info
 MYSQL_HOST = 'apolloners.goanygate.com'
 MYSQL_PORT = 3306
 MYSQL_USERNAME = 'gotcha'
 MYSQL_PASSWORD = 'gotchapw'
 MYSQL_SCHEMA = 'gotcha'
+
+# Log settings
+# LOG_FILE = 'logs/gotcha.log' # Uncomment this after development
+LOG_FILE = None
+LOG_ENABLED = True
+LOG_ENCODING = 'UTF-8'
+LOG_LEVEL = 'INFO'
+LOG_FORMAT = '%(asctime)s [%(name)s] %(levelname)s: %(message)s'
+LOG_DATEFORMAT = '%Y-%m-%d %H:%M:%S'
+LOG_STDOUT = False
+
+# Memory usage settings
+MEMUSAGE_ENABLED = True
+MEMUSAGE_LIMIT_MB = 1024
+MEMUSAGE_WARNING_MB = 0
+MEMUSAGE_NOTIFY_MAIL = None
+MEMUSAGE_REPORT = False
+MEMUSAGE_CHECK_INTERVAL_SECONDS = 60

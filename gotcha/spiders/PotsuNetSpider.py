@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
-import scrapy
+from time import localtime, strftime
+
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
+
 from gotcha.items import GotchaItem
 
 
@@ -18,7 +20,6 @@ class PotsuNetSpider(CrawlSpider):
     )
 
     def parse_humor(self, response):
-        # self.logger.info('Hi, this is an item page! %s', response.url)
         item = GotchaItem()
         item['title'] = u"".join(response.xpath('//div[contains(@class, "top_area")]//h1//text()').extract()).strip()
         item['content'] = u"".join(response.xpath('//div[re:test(@class, "document_.+")]//text()').extract()).strip()
@@ -27,4 +28,14 @@ class PotsuNetSpider(CrawlSpider):
         item['url'] = unicode(response.url)
         item['category'] = u'humor'
         item['image_urls'] = response.xpath('//div[re:test(@class, "document_.+")]//img/@src').extract()
+
+        log_msg = "Parsed: url=%(url)s content_size=%(cont_size)d image_count=%(img_cnt)d crawled_at=%(crawled_at)s"
+        log_args = {
+            "url": item['url'],
+            'cont_size': len(item['content']),
+            'img_cnt': len(item['image_urls']),
+            'crawled_at': strftime("%Y-%m-%d %H:%M:%S", localtime()),
+        }
+        self.logger.info(log_msg, log_args)
+
         return item

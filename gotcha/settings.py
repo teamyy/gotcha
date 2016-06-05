@@ -1,0 +1,115 @@
+# -*- coding: utf-8 -*-
+
+# Scrapy settings for gotcha project
+#
+# For simplicity, this file contains only settings considered important or
+# commonly used. You can find more settings consulting the documentation:
+#
+#     http://doc.scrapy.org/en/latest/topics/settings.html
+#     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
+#     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
+
+BOT_NAME = 'gotcha'
+
+SPIDER_MODULES = ['gotcha.spiders']
+NEWSPIDER_MODULE = 'gotcha.spiders'
+
+# Crawl responsibly by identifying yourself (and your website) on the user-agent
+USER_AGENT = 'teamyy.gotcha (+https://github.com/teamyy/gotcha)'
+
+# Configure maximum concurrent requests performed by Scrapy (default: 16)
+CONCURRENT_REQUESTS = 32
+
+# Configure a delay for requests for the same website (default: 0)
+# See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
+# See also autothrottle settings and docs
+RANDOMIZE_DOWNLOAD_DELAY = True
+DOWNLOAD_DELAY = 3
+# The download delay setting will honor only one of:
+CONCURRENT_REQUESTS_PER_DOMAIN = 16
+CONCURRENT_REQUESTS_PER_IP = 16
+
+# Disable cookies (enabled by default)
+#COOKIES_ENABLED=False
+
+# Disable Telnet Console (enabled by default)
+#TELNETCONSOLE_ENABLED=False
+
+# Override the default request headers:
+#DEFAULT_REQUEST_HEADERS = {
+#   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+#   'Accept-Language': 'en',
+#}
+
+# Enable or disable spider middlewares
+# See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
+#SPIDER_MIDDLEWARES = {
+#    'gotcha.middlewares.MyCustomSpiderMiddleware': 543,
+#}
+
+# Enable or disable downloader middlewares
+# See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
+#DOWNLOADER_MIDDLEWARES = {
+#    'gotcha.middlewares.MyCustomDownloaderMiddleware': 543,
+#}
+
+# Enable or disable extensions
+# See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
+EXTENSIONS = {
+    'scrapy.extensions.logstats.LogStats': 100,
+    'scrapy.extensions.corestats.CoreStats': 200,
+    'scrapy.extensions.memusage.MemoryUsage': 300,
+    'scrapy.extensions.debug.StackTraceDump': 400,
+}
+
+# Configure item pipelines
+# See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
+ITEM_PIPELINES = {
+    'gotcha.pipelines.NecessaryFieldEmptyDropPipeline': 100,
+    'gotcha.pipelines.PotsuNetAdminArticleDropPipeline': 101,
+    'gotcha.pipelines.MySqlPipeline': 900,
+}
+
+# Enable and configure the AutoThrottle extension (disabled by default)
+# See http://doc.scrapy.org/en/latest/topics/autothrottle.html
+# NOTE: AutoThrottle will honour the standard settings for concurrency and delay
+AUTOTHROTTLE_ENABLED = True
+# The initial download delay
+AUTOTHROTTLE_START_DELAY = 5
+# The maximum download delay to be set in case of high latencies
+AUTOTHROTTLE_MAX_DELAY = 60
+# Enable showing throttling stats for every response received:
+AUTOTHROTTLE_DEBUG = False
+
+# Enable and configure HTTP caching (disabled by default)
+# See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html#httpcache-middleware-settings
+#HTTPCACHE_ENABLED=True
+#HTTPCACHE_EXPIRATION_SECS=0
+#HTTPCACHE_DIR='httpcache'
+#HTTPCACHE_IGNORE_HTTP_CODES=[]
+#HTTPCACHE_STORAGE='scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+# Database connection info
+MYSQL_HOST = 'apolloners.goanygate.com'
+MYSQL_PORT = 3306
+MYSQL_USERNAME = 'gotcha'
+MYSQL_PASSWORD = 'gotchapw'
+MYSQL_SCHEMA = 'gotcha'
+
+# Log settings
+# LOG_FILE = 'logs/gotcha.log' # Uncomment this after development
+LOG_FILE = None
+LOG_ENABLED = True
+LOG_ENCODING = 'UTF-8'
+LOG_LEVEL = 'INFO'
+LOG_FORMAT = '%(asctime)s [%(name)s] %(levelname)s: %(message)s'
+LOG_DATEFORMAT = '%Y-%m-%d %H:%M:%S'
+LOG_STDOUT = False
+
+# Memory usage settings
+MEMUSAGE_ENABLED = True
+MEMUSAGE_LIMIT_MB = 1024
+MEMUSAGE_WARNING_MB = 0
+MEMUSAGE_NOTIFY_MAIL = None
+MEMUSAGE_REPORT = False
+MEMUSAGE_CHECK_INTERVAL_SECONDS = 60

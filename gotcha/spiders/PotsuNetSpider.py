@@ -25,8 +25,9 @@ class PotsuNetSpider(CrawlSpider):
         item['content'] = u"".join(response.xpath('//div[re:test(@class, "document_.+")]//text()').extract()).strip()
         item['writer'] = u"".join(response.xpath('//div[contains(@class, "rd_hd")]//a[re:test(@class, "member_.+")]//text()').extract()).strip()
         item['writed_at'] = u"".join(response.xpath('//div[contains(@class, "rd_hd")]//span[contains(@class, "date")]//text()').extract()).strip()
-        item['url'] = response.url
-        item['category'] = 'humor'
+        item['url'] = unicode(response.url)
+        item['category'] = u'humor'
+        item['image_urls'] = response.xpath('//div[re:test(@class, "document_.+")]//img/@src').extract()
 
         log_msg = "Parsed: url=%(url)s\tcontent_size=%(cont_size)d\timage_count=%(img_cnt)d\tcrawled_at=%(crawled_at)s"
         log_args = {

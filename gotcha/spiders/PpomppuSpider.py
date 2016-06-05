@@ -27,8 +27,9 @@ class PpomppuSpider(CrawlSpider):
         item['writed_at'] = u"".join(
             response.xpath('//table[contains(@class, "info_bg")]/tr[3]//td[contains(@class, "han")][2]//text()')
                     .re(u'등록일: (\d{4}-\d{2}-\d{2} \d{2}:\d{2})')).strip()
-        item['url'] = response.url
-        item['category'] = 'humor'
+        item['url'] = unicode(response.url)
+        item['category'] = u'humor'
+        item['image_urls'] = response.xpath('//td[@id="realArticleView"]//img/@src').extract()
 
         log_msg = "Parsed: url=%(url)s\tcontent_size=%(cont_size)d\timage_count=%(img_cnt)d\tcrawled_at=%(crawled_at)s"
         log_args = {

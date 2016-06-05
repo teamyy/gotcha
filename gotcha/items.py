@@ -15,3 +15,4 @@ class GotchaItem(scrapy.Item):
     writed_at = scrapy.Field()
     url = scrapy.Field()
     category = scrapy.Field()
+    image_urls = scrapy.Field()

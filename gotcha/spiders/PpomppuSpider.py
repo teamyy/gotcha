@@ -23,7 +23,7 @@ class PpomppuSpider(CrawlSpider):
         item['title'] = u"".join(response.xpath('//font[contains(@class, "view_title2")]//text()').extract()).strip()
         item['content'] = u"".join(response.xpath('//td[@id="realArticleView"]//text()').extract()).strip()
         item['writer'] = u"".join(response.xpath('//font[contains(@class, "view_name")]//text()').extract()).strip()
-        item['created_at'] = u"".join(
+        item['writed_at'] = u"".join(
             response.xpath('//table[contains(@class, "info_bg")]/tr[3]//td[contains(@class, "han")][2]//text()')
                     .re(u'등록일: (\d{4}-\d{2}-\d{2} \d{2}:\d{2})')).strip()
         item['url'] = response.url

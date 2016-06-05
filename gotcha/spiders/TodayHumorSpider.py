@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
-import scrapy
+from time import gmtime, strftime
+
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
+
 from gotcha.items import GotchaItem
 
 
@@ -18,7 +20,6 @@ class TodayHumorSpider(CrawlSpider):
     )
 
     def parse_humor(self, response):
-        # self.logger.info('Hi, this is an item page! %s', response.url)
         item = GotchaItem()
         item['title'] = u"".join(response.xpath('//div[@id="containerInner"]//div[contains(@class, "viewSubjectDiv")]//text()').extract()).strip()
         item['content'] = u"".join(response.xpath('//div[@id="containerInner"]//div[contains(@class, "viewContent")]//text()').extract()).strip()
@@ -26,5 +27,14 @@ class TodayHumorSpider(CrawlSpider):
         item['writed_at'] = u"{}-{}-{} {}:{}:{}".format(*response.xpath('//div[@id="containerInner"]//div[contains(@class, "writerInfoContents")]/div[7]//text()').re(u'\d+'))
         item['url'] = response.url
         item['category'] = 'humor'
+
+        log_msg = "Parsed: url=%(url)s\tcontent_size=%(cont_size)d\timage_count=%(img_cnt)d\tcrawled_at=%(crawled_at)s"
+        log_args = {
+            "url": item['url'],
+            'cont_size': len(item['content']),
+            'img_cnt': len(item['image_urls']),
+            'crawled_at': strftime("%Y-%m-%d %H:%M:%S", gmtime()),
+        }
+        self.logger.info(log_msg, log_args)
 
         return item

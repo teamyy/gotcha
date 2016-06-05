@@ -86,10 +86,18 @@ AUTOTHROTTLE_DEBUG = False
 #HTTPCACHE_IGNORE_HTTP_CODES=[]
 #HTTPCACHE_STORAGE='scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-
 # Database connection info
 MYSQL_HOST = 'apolloners.goanygate.com'
 MYSQL_PORT = 3306
 MYSQL_USERNAME = 'gotcha'
 MYSQL_PASSWORD = 'gotchapw'
 MYSQL_SCHEMA = 'gotcha'
+
+# Log settings
+LOG_FILE = 'logs/gotcha.log'
+LOG_ENABLED = True
+LOG_ENCODING = 'UTF-8'
+LOG_LEVEL = 'INFO'
+LOG_FORMAT = '%(asctime)s [%(name)s] %(levelname)s: %(message)s'
+LOG_DATEFORMAT = '%Y-%m-%d %H:%M:%S'
+LOG_STDOUT = False

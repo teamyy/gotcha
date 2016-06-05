@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from time import gmtime, strftime
+from time import localtime, strftime
 
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
@@ -31,12 +31,12 @@ class PpomppuSpider(CrawlSpider):
         item['category'] = u'humor'
         item['image_urls'] = response.xpath('//td[@id="realArticleView"]//img/@src').extract()
 
-        log_msg = "Parsed: url=%(url)s\tcontent_size=%(cont_size)d\timage_count=%(img_cnt)d\tcrawled_at=%(crawled_at)s"
+        log_msg = "Parsed: url=%(url)s content_size=%(cont_size)d image_count=%(img_cnt)d crawled_at=%(crawled_at)s"
         log_args = {
             "url": item['url'],
             'cont_size': len(item['content']),
             'img_cnt': len(item['image_urls']),
-            'crawled_at': strftime("%Y-%m-%d %H:%M:%S", gmtime()),
+            'crawled_at': strftime("%Y-%m-%d %H:%M:%S", localtime()),
         }
         self.logger.info(log_msg, log_args)
 

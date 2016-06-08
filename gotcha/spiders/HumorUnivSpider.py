@@ -18,7 +18,7 @@ class HumorUnivSpider(CrawlSpider):
     rules = (
         Rule(LinkExtractor(allow=('/board/humor/list\.html\?.*table=pds.*&.*pg=[0-9]+.*', ),
                            deny=('/board/humor/read\.html\?.*table=pds.*', )), follow=True),
-        Rule(LinkExtractor(allow=('/board/humor/read\.html\?.*table=pds.*', )), callback='parse_pds'),
+        Rule(LinkExtractor(allow=('/board/humor/read\.html\?.*table=pds.*', )), callback='parse_pds', follow=True),
     )
 
     def parse_pds(self, response):

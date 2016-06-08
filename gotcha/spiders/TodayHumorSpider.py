@@ -18,7 +18,7 @@ class TodayHumorSpider(CrawlSpider):
     rules = (
         Rule(LinkExtractor(allow=('/board/list\.php\?.*table=humordata.*&.*page=[0-9]+.*', ),
                            deny=('/board/view\.php\?.*table=humordata.*', '/board/view\.php\?.*no_tag=1.*', )), follow=True),
-        Rule(LinkExtractor(allow=('/board/view\.php\?.*table=humordata.*', ), deny=('/board/view\.php\?.*no_tag=1.*', )), callback='parse_humor'),
+        Rule(LinkExtractor(allow=('/board/view\.php\?.*table=humordata.*', ), deny=('/board/view\.php\?.*no_tag=1.*', )), callback='parse_humor', follow=True),
     )
 
     def parse_humor(self, response):

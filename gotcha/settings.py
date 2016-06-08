@@ -5,18 +5,12 @@ SPIDER_MODULES = ['gotcha.spiders']
 NEWSPIDER_MODULE = 'gotcha.spiders'
 USER_AGENT = 'teamyy.gotcha (+https://github.com/teamyy/gotcha)'
 
-DEFAULT_REQUEST_HEADERS = {
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-    'Accept-Language': 'en,ko',
-}
-
 SPIDER_MIDDLEWARES = {
     'scrapy.spidermiddlewares.httperror.HttpErrorMiddleware': 50,
     'scrapy.spidermiddlewares.offsite.OffsiteMiddleware': 500,
     'scrapy.spidermiddlewares.referer.RefererMiddleware': 700,
     'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware': 800,
     'scrapy.spidermiddlewares.depth.DepthMiddleware': 900,
-    # 'gotcha.middlewares.MyCustomSpiderMiddleware': 543,
 }
 
 DOWNLOADER_MIDDLEWARES = {
@@ -35,7 +29,6 @@ DOWNLOADER_MIDDLEWARES = {
     'scrapy.downloadermiddlewares.chunked.ChunkedTransferMiddleware': 830,
     'scrapy.downloadermiddlewares.stats.DownloaderStats': 850,
     'scrapy.downloadermiddlewares.httpcache.HttpCacheMiddleware': 900,
-    # 'gotcha.middlewares.MyCustomDownloaderMiddleware': 543,
 }
 
 EXTENSIONS = {
@@ -54,24 +47,22 @@ ITEM_PIPELINES = {
     'gotcha.pipelines.MySqlPipeline': 300,
 }
 
-RANDOMIZE_DOWNLOAD_DELAY = True
-DOWNLOAD_DELAY = 3
-
-CONCURRENT_REQUESTS = 32
-CONCURRENT_REQUESTS_PER_DOMAIN = 8
-CONCURRENT_ITEMS = 500
+CONCURRENT_REQUESTS = 16
+CONCURRENT_REQUESTS_PER_DOMAIN = 16
+CONCURRENT_ITEMS = 400
 
 COOKIES_ENABLED = False
 
 TELNETCONSOLE_ENABLED = False
 
 AUTOTHROTTLE_ENABLED = True
-AUTOTHROTTLE_START_DELAY = 5
-AUTOTHROTTLE_MAX_DELAY = 60
+AUTOTHROTTLE_START_DELAY = 1
+AUTOTHROTTLE_MAX_DELAY = 10
+AUTOTHROTTLE_TARGET_CONCURRENCY = 5.0
 AUTOTHROTTLE_DEBUG = False
 
 HTTPCACHE_ENABLED = True
-HTTPCACHE_EXPIRATION_SECS = 600
+HTTPCACHE_EXPIRATION_SECS = 60
 HTTPCACHE_DIR = ''
 HTTPCACHE_IGNORE_HTTP_CODES = []
 HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.LeveldbCacheStorage'
@@ -79,7 +70,7 @@ HTTPCACHE_IGNORE_MISSING = False
 HTTPCACHE_POLICY = 'scrapy.extensions.httpcache.RFC2616Policy'
 HTTPCACHE_DBM_MODULE = 'leveldb'
 
-MYSQL_HOST = 'apolloners.goanygate.com'
+MYSQL_HOST = 'localhost'
 MYSQL_PORT = 3306
 MYSQL_USERNAME = 'gotcha'
 MYSQL_PASSWORD = 'gotchapw'

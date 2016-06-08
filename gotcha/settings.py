@@ -70,7 +70,7 @@ HTTPCACHE_IGNORE_MISSING = False
 HTTPCACHE_POLICY = 'scrapy.extensions.httpcache.RFC2616Policy'
 HTTPCACHE_DBM_MODULE = 'leveldb'
 
-MYSQL_HOST = 'apolloners.goanygate.com'
+MYSQL_HOST = 'localhost'
 MYSQL_PORT = 3306
 MYSQL_USERNAME = 'gotcha'
 MYSQL_PASSWORD = 'gotchapw'

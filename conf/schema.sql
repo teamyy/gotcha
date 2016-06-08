@@ -26,12 +26,12 @@ CREATE TABLE `article_images` (
 
 DELIMITER ;;
 /*!50003 SET SESSION SQL_MODE="" */;;
-  /*!50003 CREATE */ /*!50017 DEFINER=`gotcha-admin`@`%` */ /*!50003 TRIGGER `insert_article_images_history` AFTER INSERT ON `article_images` FOR EACH ROW BEGIN
+  /*!50003 CREATE */ /*!50017 DEFINER=`gotcha-admin`@`localhost` */ /*!50003 TRIGGER `insert_article_images_history` AFTER INSERT ON `article_images` FOR EACH ROW BEGIN
   INSERT INTO article_images_history (article_id, image_url)
   VALUES (NEW.article_id, NEW.image_url);
 END */;;
 /*!50003 SET SESSION SQL_MODE="" */;;
-  /*!50003 CREATE */ /*!50017 DEFINER=`gotcha-admin`@`%` */ /*!50003 TRIGGER `update_article_images_history` AFTER UPDATE ON `article_images` FOR EACH ROW BEGIN
+  /*!50003 CREATE */ /*!50017 DEFINER=`gotcha-admin`@`localhost` */ /*!50003 TRIGGER `update_article_images_history` AFTER UPDATE ON `article_images` FOR EACH ROW BEGIN
   INSERT INTO article_images_history (article_id, image_url)
   VALUES (NEW.article_id, NEW.image_url);
 END */;;
@@ -78,12 +78,12 @@ CREATE TABLE `articles` (
 
 DELIMITER ;;
 /*!50003 SET SESSION SQL_MODE="" */;;
-  /*!50003 CREATE */ /*!50017 DEFINER=`gotcha-admin`@`%` */ /*!50003 TRIGGER `insert_articles_history` AFTER INSERT ON `articles` FOR EACH ROW BEGIN
+  /*!50003 CREATE */ /*!50017 DEFINER=`gotcha-admin`@`localhost` */ /*!50003 TRIGGER `insert_articles_history` AFTER INSERT ON `articles` FOR EACH ROW BEGIN
   INSERT INTO articles_history (title, content, writer, url, category, writed_at)
   VALUES (NEW.title, NEW.content, NEW.writer, NEW.url, NEW.category, NEW.writed_at);
 END */;;
 /*!50003 SET SESSION SQL_MODE="" */;;
-  /*!50003 CREATE */ /*!50017 DEFINER=`gotcha-admin`@`%` */ /*!50003 TRIGGER `update_articles_history` AFTER UPDATE ON `articles` FOR EACH ROW BEGIN
+  /*!50003 CREATE */ /*!50017 DEFINER=`gotcha-admin`@`localhost` */ /*!50003 TRIGGER `update_articles_history` AFTER UPDATE ON `articles` FOR EACH ROW BEGIN
   INSERT INTO articles_history (title, content, writer, url, category, writed_at)
   VALUES (NEW.title, NEW.content, NEW.writer, NEW.url, NEW.category, NEW.writed_at);
 END */;;

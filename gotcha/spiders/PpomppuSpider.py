@@ -16,6 +16,8 @@ class PpomppuSpider(CrawlSpider):
     ]
 
     rules = (
+        Rule(LinkExtractor(allow=('/zboard/zboard\.php\?.*id=humor.*&.*page=[0-9]+.*', ),
+                           deny=('/zboard/view\.php\?.*id=humor.*&.*no=[0-9]+.*', )), follow=True),
         Rule(LinkExtractor(allow=('/zboard/view\.php\?.*id=humor.*&.*no=[0-9]+.*', )), callback='parse_humor', follow=True),
     )
 

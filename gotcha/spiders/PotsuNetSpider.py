@@ -16,6 +16,8 @@ class PotsuNetSpider(CrawlSpider):
     ]
 
     rules = (
+        Rule(LinkExtractor(allow=('/index\.php\?.*mid=humor.*&.*page=[0-9]+.*', ),
+                           deny=('/index\.php\?.*mid=humor.*&.*document_srl=[0-9]+.*', )), follow=True),
         Rule(LinkExtractor(allow=('/index\.php\?.*mid=humor.*&.*document_srl=[0-9]+.*', )), callback='parse_humor', follow=True),
     )
 

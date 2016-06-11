@@ -17,8 +17,6 @@ class NecessaryFieldEmptyDropPipeline(object):
     def process_item(self, item, spider):
         if not item['title']:
             raise DropItem("An article was dropped because 'title' field is empty (url: %s)" % item['url'])
-        if not item['content']:
-            raise DropItem("An article was dropped because 'content' field is empty (url: %s)" % item['url'])
         if not item['writer']:
             raise DropItem("An article was dropped because 'writer' field is empty (url: %s)" % item['url'])
         if not item['writed_at']:

@@ -10,6 +10,7 @@ from gotcha.items import GotchaItem
 
 class PotsuNetSpider(CrawlSpider):
     name = "PotsuNetSpider"
+    identity_params = ['document_srl', 'mid']
     allowed_domains = ["potsu.net"]
     start_urls = [
         'http://potsu.net/index.php?mid=humor',

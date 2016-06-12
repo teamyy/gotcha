@@ -30,7 +30,6 @@ setup(
     version="0.1.0",
     author="teamyy",
     description="A crawler to find a lot of humor post",
-    license="MIT",
     keywords="gotcha crawler humor article",
     url="https://github.com/teamyy/gotcha",
     packages=find_packages(),

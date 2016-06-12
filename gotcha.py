@@ -11,10 +11,14 @@ if __name__ == "__main__":
     config.read('scrapy.cfg')
     api_prefix = config.get("deploy", "url")
 
-    command_list = ["run", "cancel", "status", "list"]
+    command_list = ["init", "run", "cancel", "status", "list"]
 
     optparser = optparse.OptionParser()
     optparser.add_option("-c", "--command", dest="command", choices=command_list, help="Please input command ({cl})".format(cl=", ".join(command_list)))
+
+    init_optgroup = optparse.OptionGroup(optparser, "Init Options")
+    init_optgroup.add_option("-e", "--egg", dest="egg", help="Egg file path")
+    optparser.add_option_group(init_optgroup)
 
     run_optgroup = optparse.OptionGroup(optparser, "Run Options")
     run_optgroup.add_option("-s", "--spider", dest="spider", help="A spider name to run crawl")
@@ -27,7 +31,26 @@ if __name__ == "__main__":
     (opts, args) = optparser.parse_args()
 
     if opts.command:
-        if opts.command == "run":
+        if opts.command == "init":
+            if not opts.egg:
+                sys.stderr.write("Undefined egg file path\n")
+                sys.exit(1)
+
+            api = "{api_prefix}/addversion.json".format(api_prefix=api_prefix)
+            data = {
+                "project": "gotcha",
+                "version": "r1",
+                "egg": "@{egg}".format(egg=opts.egg),
+            }
+            r = requests.post(api, data)
+            if r.status_code == 200:
+                status = r.json()["status"]
+                sys.stdout.write(status + "\n")
+                sys.exit(0)
+            else:
+                sys.stderr.write("HTTP Request is not 'OK' : %s\n" % api)
+                sys.exit(1)
+        elif opts.command == "run":
             if not opts.spider:
                 sys.stderr.write("Undefined spider name\n")
                 sys.exit(1)

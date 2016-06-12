@@ -10,6 +10,7 @@ from gotcha.items import GotchaItem
 
 class PpomppuSpider(CrawlSpider):
     name = "PpomppuSpider"
+    identity_params = ['no', 'id']
     allowed_domains = ["www.ppomppu.co.kr"]
     start_urls = [
         'http://www.ppomppu.co.kr/zboard/zboard.php?id=humor',

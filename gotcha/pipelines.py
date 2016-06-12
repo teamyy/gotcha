@@ -5,7 +5,7 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import logging
-from urlparse import urlparse
+from urlparse import urlparse,parse_qs
 
 from scrapy.exceptions import DropItem
 import MySQLdb
@@ -35,6 +35,21 @@ class PotsuNetAdminArticleDropPipeline(object):
 
         return item
 
+class UrlDistinctPipeline(object):
+    def process_item(self, item, spider):
+        params = parse_qs(urlparse(item['url']).query)
+        if hasattr(spider,'identity_params') and isinstance(spider.identity_params, list):
+            query_string = u'&'.join([ u'%s=%s' % (key, value) for key, value in self.filter_params(params, spider.identity_params).items()])
+            item['url'] = item['url'].split('?')[0] + '?' + query_string
+        return item
+
+    def filter_params(self, params, identity_params):
+        filtered_params = {}
+        for param_key in identity_params:
+            if not params.has_key(param_key):
+                raise DropItem("The article was dropped becuase identity parameter is not exist")
+            filtered_params[param_key] = params[param_key][0]
+        return filtered_params
 
 class MySqlPipeline(object):
     MAX_LIST_SIZE = 10
@@ -48,6 +63,7 @@ class MySqlPipeline(object):
         self.db_name = db_name
 
     @classmethod
+
     def from_crawler(cls, crawler):
         return cls(
             mysql_host=crawler.settings.get('MYSQL_HOST'),

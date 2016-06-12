@@ -10,6 +10,7 @@ from gotcha.items import GotchaItem
 
 class TodayHumorSpider(CrawlSpider):
     name = "TodayHumorSpider"
+    identity_params = ['no','table']
     allowed_domains = ["www.todayhumor.co.kr"]
     start_urls = [
         'http://www.todayhumor.co.kr/board/list.php?table=humordata',

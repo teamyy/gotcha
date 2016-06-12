@@ -18,12 +18,12 @@ if system is not None and system and system.lower() == 'linux':
             'mysql-client', 'mysql-server', 'mysql-utilities', 'libmysqlclient-dev',
             'python', 'python-dev', 'libxml2-dev', 'libxslt1-dev', 'libffi-dev', 'libssl-dev',
         ]
-        subprocess.check_call('sudo apt-get install -y %s' % (' '.join(install_libs)))
+        subprocess.check_call('sudo apt-get install -y %s' % (' '.join(install_libs)), shell=True)
     elif dist is not None and dist and dist.lower() in ['redhat', 'centos']:
         install_libs = [
             'mysql', 'mysql-devel', 'python', 'python-devel', 'python-lxml', 'libffi-devel', 'openssl-devel'
         ]
-        subprocess.check_call('sudo yum install -y %s' % (' '.join(install_libs)))
+        subprocess.check_call('sudo yum install -y %s' % (' '.join(install_libs)), shell=True)
 
 setup(
     name="gotcha",

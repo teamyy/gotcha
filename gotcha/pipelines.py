@@ -48,7 +48,7 @@ class UrlDistinctPipeline(object):
         for param_key in identity_params:
             if not params.has_key(param_key):
                 raise DropItem("The article was dropped becuase identity parameter is not exist")
-            filtered_params[param_key] = params[param_key][0]
+            filtered_params[param_key] = params[param_key][-1]
         return filtered_params
 
 class MySqlPipeline(object):

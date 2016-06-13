@@ -33,8 +33,12 @@ class UrlDistinctMiddlerware(object):
     def __init__(self, settings):
         self.url_cache_capacity = settings.getint('URL_CACHE_CAPACITY', 400)
         self.url_cache_retention = settings.getint('URL_CACHE_RETENTION', 3600) # sec
+        self.url_cache = UrlCache(self.url_cache_capacity, self.url_cache_retention)
 
-    url_cache = UrlCache()
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(crawler.settings)
+
     def process_request(self, request, spider):
         params = parse_qs(urlparse(request.url).query)
         if hasattr(spider, 'identity_params') and isinstance(spider.identity_params, list):
@@ -50,14 +54,13 @@ class UrlDistinctMiddlerware(object):
 
     def process_response(self, request, response, spider):
         if hasattr(request, 'identity_url'):
-            response.url = request.identity_url
+            response.replace(url=request.identity_url)
 
         return response
 
     def filter_params(self, params, identity_params):
         filtered_params = {}
         for param_key in identity_params:
-            if not params.has_key(param_key):
-                raise IgnoreRequest("The article was dropped becuase identity parameter is not exist")
-            filtered_params[param_key] = params[param_key][-1]
+            if params.has_key(param_key):
+                filtered_params[param_key] = params[param_key][-1]
         return filtered_params

@@ -10,6 +10,7 @@ from gotcha.items import GotchaItem
 
 class HumorUnivSpider(CrawlSpider):
     name = "HumorUnivSpider"
+    identity_params = ['table', 'number']
     allowed_domains = ["web.humoruniv.com"]
     start_urls = [
         'http://web.humoruniv.com/board/humor/list.html?table=pds',

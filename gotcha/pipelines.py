@@ -35,7 +35,6 @@ class PotsuNetAdminArticleDropPipeline(object):
 
         return item
 
-
 class MySqlPipeline(object):
     MAX_LIST_SIZE = 10
     gotcha_item_list = []
@@ -48,6 +47,7 @@ class MySqlPipeline(object):
         self.db_name = db_name
 
     @classmethod
+
     def from_crawler(cls, crawler):
         return cls(
             mysql_host=crawler.settings.get('MYSQL_HOST'),

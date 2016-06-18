@@ -10,7 +10,7 @@ from urlparse import urlparse
 from scrapy.exceptions import DropItem
 import MySQLdb
 
-logger = logging.getLogger('gotchaLogger')
+logger = logging.getLogger('PipelineLogger')
 
 
 class NecessaryFieldEmptyDropPipeline(object):

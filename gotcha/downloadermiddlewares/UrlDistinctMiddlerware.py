@@ -52,8 +52,6 @@ class UrlDistinctMiddlerware(object):
         refined_params = self.refine_params(params, identity_params)
         refined_url = request.url.split('?')[0] + '?' + refined_params
 
-        request = request.replace(url=refined_url)
-
         if self.url_cache.has_key(request.url):
                 logger.debug("Cached request url : %s" % request.url)
                 raise IgnoreRequest()

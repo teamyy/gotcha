@@ -15,7 +15,6 @@ class HumorUnivSpider(CrawlSpider):
     start_urls = [
         u'http://web.humoruniv.com/board/humor/list.html?table=pds',
     ]
-
     rules = (
         Rule(LinkExtractor(allow=(u'/board/humor/list\.html\?.*table=pds.*&.*pg=[0-9]+.*', ),
                            deny=(u'/board/humor/read\.html\?.*table=pds.*', )), follow=True),

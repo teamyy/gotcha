@@ -15,7 +15,6 @@ class TodayHumorSpider(CrawlSpider):
     start_urls = [
         u'http://www.todayhumor.co.kr/board/list.php?table=humordata',
     ]
-
     rules = (
         Rule(LinkExtractor(allow=(u'/board/list\.php\?.*table=humordata.*&.*page=[0-9]+.*', ),
                            deny=(u'/board/view\.php\?.*table=humordata.*', '/board/view\.php\?.*no_tag=1.*', )), follow=True),

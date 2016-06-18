@@ -15,7 +15,6 @@ class PotsuNetSpider(CrawlSpider):
     start_urls = [
         u'http://potsu.net/index.php?mid=humor',
     ]
-
     rules = (
         Rule(LinkExtractor(allow=(u'/index\.php\?.*mid=humor.*&.*page=[0-9]+.*', ),
                            deny=(u'/index\.php\?.*mid=humor.*&.*document_srl=[0-9]+.*', )), follow=True),

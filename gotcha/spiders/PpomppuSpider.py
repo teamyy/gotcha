@@ -15,7 +15,6 @@ class PpomppuSpider(CrawlSpider):
     start_urls = [
         u'http://www.ppomppu.co.kr/zboard/zboard.php?id=humor',
     ]
-
     rules = (
         Rule(LinkExtractor(allow=(u'/zboard/zboard\.php\?.*id=humor.*&.*page=[0-9]+.*', ),
                            deny=(u'/zboard/view\.php\?.*id=humor.*&.*no=[0-9]+.*', )), follow=True),

@@ -9,17 +9,17 @@ from gotcha.items import GotchaItem
 
 
 class HumorUnivSpider(CrawlSpider):
-    name = "HumorUnivSpider"
-    identity_params = ['table', 'number']
-    allowed_domains = ["web.humoruniv.com"]
+    name = u"HumorUnivSpider"
+    identity_params = [u'table', u'number']
+    allowed_domains = [u"web.humoruniv.com"]
     start_urls = [
-        'http://web.humoruniv.com/board/humor/list.html?table=pds',
+        u'http://web.humoruniv.com/board/humor/list.html?table=pds',
     ]
 
     rules = (
-        Rule(LinkExtractor(allow=('/board/humor/list\.html\?.*table=pds.*&.*pg=[0-9]+.*', ),
-                           deny=('/board/humor/read\.html\?.*table=pds.*', )), follow=True),
-        Rule(LinkExtractor(allow=('/board/humor/read\.html\?.*table=pds.*', )), callback='parse_pds', follow=True),
+        Rule(LinkExtractor(allow=(u'/board/humor/list\.html\?.*table=pds.*&.*pg=[0-9]+.*', ),
+                           deny=(u'/board/humor/read\.html\?.*table=pds.*', )), follow=True),
+        Rule(LinkExtractor(allow=(u'/board/humor/read\.html\?.*table=pds.*', )), callback='parse_pds', follow=True),
     )
 
     def parse_pds(self, response):

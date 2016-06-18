@@ -9,17 +9,17 @@ from gotcha.items import GotchaItem
 
 
 class TodayHumorSpider(CrawlSpider):
-    name = "TodayHumorSpider"
-    identity_params = ['no','table']
-    allowed_domains = ["www.todayhumor.co.kr"]
+    name = u"TodayHumorSpider"
+    identity_params = [u'no', u'table']
+    allowed_domains = [u"www.todayhumor.co.kr"]
     start_urls = [
-        'http://www.todayhumor.co.kr/board/list.php?table=humordata',
+        u'http://www.todayhumor.co.kr/board/list.php?table=humordata',
     ]
 
     rules = (
-        Rule(LinkExtractor(allow=('/board/list\.php\?.*table=humordata.*&.*page=[0-9]+.*', ),
-                           deny=('/board/view\.php\?.*table=humordata.*', '/board/view\.php\?.*no_tag=1.*', )), follow=True),
-        Rule(LinkExtractor(allow=('/board/view\.php\?.*table=humordata.*', ), deny=('/board/view\.php\?.*no_tag=1.*', )), callback='parse_humor', follow=True),
+        Rule(LinkExtractor(allow=(u'/board/list\.php\?.*table=humordata.*&.*page=[0-9]+.*', ),
+                           deny=(u'/board/view\.php\?.*table=humordata.*', '/board/view\.php\?.*no_tag=1.*', )), follow=True),
+        Rule(LinkExtractor(allow=(u'/board/view\.php\?.*table=humordata.*', ), deny=('/board/view\.php\?.*no_tag=1.*', )), callback='parse_humor', follow=True),
     )
 
     def parse_humor(self, response):

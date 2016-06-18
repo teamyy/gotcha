@@ -9,17 +9,17 @@ from gotcha.items import GotchaItem
 
 
 class PotsuNetSpider(CrawlSpider):
-    name = "PotsuNetSpider"
-    identity_params = ['document_srl', 'mid']
-    allowed_domains = ["potsu.net"]
+    name = u"PotsuNetSpider"
+    identity_params = [u'document_srl', u'mid']
+    allowed_domains = [u"potsu.net"]
     start_urls = [
-        'http://potsu.net/index.php?mid=humor',
+        u'http://potsu.net/index.php?mid=humor',
     ]
 
     rules = (
-        Rule(LinkExtractor(allow=('/index\.php\?.*mid=humor.*&.*page=[0-9]+.*', ),
-                           deny=('/index\.php\?.*mid=humor.*&.*document_srl=[0-9]+.*', )), follow=True),
-        Rule(LinkExtractor(allow=('/index\.php\?.*mid=humor.*&.*document_srl=[0-9]+.*', )), callback='parse_humor', follow=True),
+        Rule(LinkExtractor(allow=(u'/index\.php\?.*mid=humor.*&.*page=[0-9]+.*', ),
+                           deny=(u'/index\.php\?.*mid=humor.*&.*document_srl=[0-9]+.*', )), follow=True),
+        Rule(LinkExtractor(allow=(u'/index\.php\?.*mid=humor.*&.*document_srl=[0-9]+.*', )), callback='parse_humor', follow=True),
     )
 
     def parse_humor(self, response):

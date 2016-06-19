@@ -66,7 +66,7 @@ class UrlDistinctMiddlerware(object):
         refined_params = self.refine_params(params, identity_params)
         refined_url = request.url.split('?')[0] + '?' + refined_params
 
-        response = response.replace(url=refined_url)
+        response = response.replace(url=str(refined_url))
 
         logger.debug("Replaced response url : %s" % response.url)
 

@@ -18,7 +18,6 @@ SPIDER_MIDDLEWARES = {
 
 DOWNLOADER_MIDDLEWARES = {
     'scrapy.downloadermiddlewares.robotstxt.RobotsTxtMiddleware': 100,
-    'gotcha.downloadermiddlewares.UrlDistinctMiddlerware.UrlDistinctMiddlerware': 200,
     'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware': 300,
     'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware': 350,
     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': 400,
@@ -33,6 +32,7 @@ DOWNLOADER_MIDDLEWARES = {
     'scrapy.downloadermiddlewares.chunked.ChunkedTransferMiddleware': 830,
     'scrapy.downloadermiddlewares.stats.DownloaderStats': 850,
     'scrapy.downloadermiddlewares.httpcache.HttpCacheMiddleware': 900,
+    'gotcha.downloadermiddlewares.UrlDistinctMiddlerware.UrlDistinctMiddlerware': 1000,
 }
 
 EXTENSIONS = {

@@ -9,17 +9,16 @@ from gotcha.items import GotchaItem
 
 
 class PpomppuSpider(CrawlSpider):
-    name = "PpomppuSpider"
-    identity_params = ['no', 'id']
-    allowed_domains = ["www.ppomppu.co.kr"]
+    name = u"PpomppuSpider"
+    identity_params = [u'no', u'id']
+    allowed_domains = [u"www.ppomppu.co.kr"]
     start_urls = [
-        'http://www.ppomppu.co.kr/zboard/zboard.php?id=humor',
+        u'http://www.ppomppu.co.kr/zboard/zboard.php?id=humor',
     ]
-
     rules = (
-        Rule(LinkExtractor(allow=('/zboard/zboard\.php\?.*id=humor.*&.*page=[0-9]+.*', ),
-                           deny=('/zboard/view\.php\?.*id=humor.*&.*no=[0-9]+.*', )), follow=True),
-        Rule(LinkExtractor(allow=('/zboard/view\.php\?.*id=humor.*&.*no=[0-9]+.*', )), callback='parse_humor', follow=True),
+        Rule(LinkExtractor(allow=(u'/zboard/zboard\.php\?.*id=humor.*&.*page=[0-9]+.*', ),
+                           deny=(u'/zboard/view\.php\?.*id=humor.*&.*no=[0-9]+.*', )), follow=True),
+        Rule(LinkExtractor(allow=(u'/zboard/view\.php\?.*id=humor.*&.*no=[0-9]+.*', )), callback='parse_humor', follow=True),
     )
 
     def parse_humor(self, response):

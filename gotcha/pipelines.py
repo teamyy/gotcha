@@ -5,13 +5,12 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import logging
-import scrapy
 from urlparse import urlparse
-from scrapy.pipelines.images import ImagesPipeline
+
 from scrapy.exceptions import DropItem
 import MySQLdb
 
-logger = logging.getLogger('gotchaLogger')
+logger = logging.getLogger('PipelineLogger')
 
 
 class NecessaryFieldEmptyDropPipeline(object):
@@ -91,14 +90,3 @@ class MySqlPipeline(object):
 
         except MySQLdb.Error as e:
             logger.error('Mysql Insert Fail : %d, %s', e.args[0], e.args[1])
-
-
-class ImagesUsingParsedImageUrlsPipeline(ImagesPipeline):
-    def get_media_requests(self, item, info):
-        for image_url in item['image_urls']:
-            yield scrapy.Request(image_url)
-
-    def item_completed(self, results, item, info):
-        image_paths = [x['path'] for ok, x in results if ok]
-        item['images'] = image_paths if image_paths else []
-        return item

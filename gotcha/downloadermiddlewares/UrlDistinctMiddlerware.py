@@ -2,8 +2,9 @@
 
 import time
 import logging
+from urlparse import urlparse, parse_qs
+
 from scrapy.exceptions import IgnoreRequest
-from urlparse import urlparse,parse_qs
 
 logger = logging.getLogger('UrlDistinctMiddlerwareLogger')
 
@@ -32,14 +33,14 @@ class UrlCache:
                 del_count += 1
 
         if del_count == 0:
-            oldest_key = min(self.cache.keys(), key=lambda key:self.cache[key])
+            oldest_key = min(self.cache.keys(), key=lambda k: self.cache[k])
             self.cache.pop(oldest_key)
 
 
 class UrlDistinctMiddlerware(object):
     def __init__(self, settings):
         self.url_cache_capacity = settings.getint('URL_CACHE_CAPACITY', 400)
-        self.url_cache_retention = settings.getint('URL_CACHE_RETENTION', 3600) # sec
+        self.url_cache_retention = settings.getint('URL_CACHE_RETENTION', 3600)
         self.url_cache = UrlCache(self.url_cache_capacity, self.url_cache_retention)
 
     @classmethod

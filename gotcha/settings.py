@@ -191,12 +191,11 @@ IMAGES_RESULT_FIELD = 'images'
 
 IMAGES_THUMBS = {
     'small': (80, 80),
-    'big': (130, 130),
 }
 
-IMAGES_MIN_HEIGHT = 80
+IMAGES_MIN_HEIGHT = 0
 
-IMAGES_MIN_WIDTH = 80
+IMAGES_MIN_WIDTH = 0
 
 MYSQL_HOST = 'localhost'
 

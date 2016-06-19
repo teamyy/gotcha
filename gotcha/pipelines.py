@@ -5,8 +5,9 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import logging
+import scrapy
 from urlparse import urlparse
-
+from scrapy.pipelines.images import ImagesPipeline
 from scrapy.exceptions import DropItem
 import MySQLdb
 
@@ -35,6 +36,7 @@ class PotsuNetAdminArticleDropPipeline(object):
 
         return item
 
+
 class MySqlPipeline(object):
     MAX_LIST_SIZE = 10
     gotcha_item_list = []
@@ -45,9 +47,10 @@ class MySqlPipeline(object):
         self.username = username
         self.password = password
         self.db_name = db_name
+        self.connection = None
+        self.cursor = None
 
     @classmethod
-
     def from_crawler(cls, crawler):
         return cls(
             mysql_host=crawler.settings.get('MYSQL_HOST'),
@@ -62,7 +65,7 @@ class MySqlPipeline(object):
         self.cursor = self.connection.cursor()
 
     def close_spider(self, spider):
-        if len(self.gotcha_item_list) > 0 :
+        if len(self.gotcha_item_list) > 0:
             self.insert_mysql()
         self.connection.close()
 
@@ -70,7 +73,7 @@ class MySqlPipeline(object):
     def process_item(self, item, spider):
         self.gotcha_item_list.append((item['title'], item['content'], item['writer'], item['writed_at'], item['url'], item['category']))
 
-        if len(self.gotcha_item_list) < self.MAX_LIST_SIZE :
+        if len(self.gotcha_item_list) < self.MAX_LIST_SIZE:
             return item
         self.insert_mysql()
         return item
@@ -88,3 +91,14 @@ class MySqlPipeline(object):
 
         except MySQLdb.Error as e:
             logger.error('Mysql Insert Fail : %d, %s', e.args[0], e.args[1])
+
+
+class ImagesUsingParsedImageUrlsPipeline(ImagesPipeline):
+    def get_media_requests(self, item, info):
+        for image_url in item['image_urls']:
+            yield scrapy.Request(image_url)
+
+    def item_completed(self, results, item, info):
+        image_paths = [x['path'] for ok, x in results if ok]
+        item['images'] = image_paths if image_paths else []
+        return item

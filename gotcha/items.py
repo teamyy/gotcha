@@ -16,3 +16,4 @@ class GotchaItem(scrapy.Item):
     url = scrapy.Field()
     category = scrapy.Field()
     image_urls = scrapy.Field()
+    images = scrapy.Field()

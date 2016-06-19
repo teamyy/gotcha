@@ -48,7 +48,8 @@ EXTENSIONS = {
 ITEM_PIPELINES = {
     'gotcha.pipelines.NecessaryFieldEmptyDropPipeline': 100,
     'gotcha.pipelines.PotsuNetAdminArticleDropPipeline': 200,
-    'gotcha.pipelines.UrlDistinctPipeline': 201,
+    # 'scrapy.pipelines.images.ImagesPipeline': 250,
+    'gotcha.pipelines.ImagesUsingParsedImageUrlsPipeline': 250,
     'gotcha.pipelines.MySqlPipeline': 300,
 }
 
@@ -182,6 +183,21 @@ RETRY_ENABLED = True
 RETRY_HTTP_CODES = [408, 500, 502, 503, 504]
 
 RETRY_TIMES = 3
+
+IMAGES_STORE = 'images'
+
+IMAGES_URLS_FIELD = 'image_urls'
+
+IMAGES_RESULT_FIELD = 'images'
+
+IMAGES_THUMBS = {
+    'small': (80, 80),
+    'big': (130, 130),
+}
+
+IMAGES_MIN_HEIGHT = 80
+
+IMAGES_MIN_WIDTH = 80
 
 MYSQL_HOST = 'localhost'
 

@@ -17,8 +17,8 @@ SPIDER_MIDDLEWARES = {
 }
 
 DOWNLOADER_MIDDLEWARES = {
-    'gotcha.downloadermiddlewares.UrlDistinctMiddlerware.UrlDistinctMiddlerware': 99,
     'scrapy.downloadermiddlewares.robotstxt.RobotsTxtMiddleware': 100,
+    'gotcha.downloadermiddlewares.UrlDistinctMiddlerware.UrlDistinctMiddlerware': 200,
     'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware': 300,
     'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware': 350,
     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': 400,
@@ -48,7 +48,6 @@ EXTENSIONS = {
 ITEM_PIPELINES = {
     'gotcha.pipelines.NecessaryFieldEmptyDropPipeline': 100,
     'gotcha.pipelines.PotsuNetAdminArticleDropPipeline': 200,
-    'gotcha.pipelines.UrlDistinctPipeline': 201,
     'gotcha.pipelines.MySqlPipeline': 300,
 }
 

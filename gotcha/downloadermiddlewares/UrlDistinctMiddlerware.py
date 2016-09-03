@@ -13,7 +13,7 @@ class UrlCache:
     def __init__(self, capacity, retention):
         self.capacity = capacity
         self.retention = retention
-        self.cache = {}
+        self.cache = dict()
 
     def has_key(self, key):
         now = int(time.time())
@@ -27,7 +27,7 @@ class UrlCache:
     def swipe(self):
         now = int(time.time())
         del_count = 0
-        for key, timestamp in self.cache:
+        for key, timestamp in self.cache.iteritems():
             if now - timestamp > self.retention:
                 del self.cache[key]
                 del_count += 1
@@ -48,6 +48,9 @@ class UrlDistinctMiddlerware(object):
         return cls(crawler.settings)
 
     def process_request(self, request, spider):
+        if request.callback is None :
+            return None
+
         params = parse_qs(urlparse(request.url).query)
         identity_params = spider.identity_params
         refined_params = self.refine_params(params, identity_params)
@@ -61,6 +64,9 @@ class UrlDistinctMiddlerware(object):
         return None
 
     def process_response(self, request, response, spider):
+        if request.callback is None:
+            return response
+
         params = parse_qs(urlparse(request.url).query)
         identity_params = spider.identity_params
         refined_params = self.refine_params(params, identity_params)
@@ -75,4 +81,3 @@ class UrlDistinctMiddlerware(object):
     def refine_params(self, params, identity_params):
         filtered_params = {key: values[-1] for key, values in params.items() if key in identity_params}
         return u'&'.join([u'%s=%s' % (key, value) for key, value in filtered_params.items()])
-

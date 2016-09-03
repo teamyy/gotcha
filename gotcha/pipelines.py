@@ -7,6 +7,9 @@
 import logging
 from urlparse import urlparse
 
+import scrapy
+from scrapy.pipelines.images import ImagesPipeline
+
 from scrapy.exceptions import DropItem
 import MySQLdb
 
@@ -90,3 +93,17 @@ class MySqlPipeline(object):
 
         except MySQLdb.Error as e:
             logger.error('Mysql Insert Fail : %d, %s', e.args[0], e.args[1])
+
+
+class CorrectedImageUrlsForImagesPipeline(ImagesPipeline):
+    def get_media_requests(self, item, info):
+        for image_url in item['image_urls']:
+            o = urlparse(image_url, allow_fragments=False)
+            yield scrapy.Request(image_url)
+
+    def item_completed(self, results, item, info):
+        image_paths = [x['path'] for ok, x in results if ok]
+        if not image_paths:
+            raise DropItem("Item contains no images")
+        item['image_paths'] = image_paths
+        return item

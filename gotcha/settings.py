@@ -48,7 +48,7 @@ EXTENSIONS = {
 ITEM_PIPELINES = {
     'gotcha.pipelines.NecessaryFieldEmptyDropPipeline': 100,
     'gotcha.pipelines.PotsuNetAdminArticleDropPipeline': 200,
-    'scrapy.pipelines.images.ImagesPipeline': 250,
+    'gotcha.pipelines.CorrectedImageUrlsForImagesPipeline': 250,
     'gotcha.pipelines.MySqlPipeline': 300,
 }
 

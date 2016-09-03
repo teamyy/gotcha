@@ -99,11 +99,15 @@ class CorrectedImageUrlsForImagesPipeline(ImagesPipeline):
     def get_media_requests(self, item, info):
         for image_url in item['image_urls']:
             o = urlparse(image_url, allow_fragments=False)
-            yield scrapy.Request(image_url)
+            is_valid = o.scheme and o.netloc
+            if is_valid:
+                yield scrapy.Request(image_url)
+            else:
+                logger.warning('Unexpected url format (url: %s)' % image_url)
+
 
     def item_completed(self, results, item, info):
         image_paths = [x['path'] for ok, x in results if ok]
-        if not image_paths:
-            raise DropItem("Item contains no images")
-        item['image_paths'] = image_paths
+        if image_paths:
+            item['image_paths'] = image_paths
         return item

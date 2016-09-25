@@ -18,7 +18,6 @@ SPIDER_MIDDLEWARES = {
 
 DOWNLOADER_MIDDLEWARES = {
     'scrapy.downloadermiddlewares.robotstxt.RobotsTxtMiddleware': 100,
-    'gotcha.downloadermiddlewares.UrlDistinctMiddlerware.UrlDistinctMiddlerware': 200,
     'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware': 300,
     'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware': 350,
     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': 400,
@@ -33,6 +32,7 @@ DOWNLOADER_MIDDLEWARES = {
     'scrapy.downloadermiddlewares.chunked.ChunkedTransferMiddleware': 830,
     'scrapy.downloadermiddlewares.stats.DownloaderStats': 850,
     'scrapy.downloadermiddlewares.httpcache.HttpCacheMiddleware': 900,
+    'gotcha.downloadermiddlewares.UrlDistinctMiddlerware.UrlDistinctMiddlerware': 1000,
 }
 
 EXTENSIONS = {
@@ -48,6 +48,7 @@ EXTENSIONS = {
 ITEM_PIPELINES = {
     'gotcha.pipelines.NecessaryFieldEmptyDropPipeline': 100,
     'gotcha.pipelines.PotsuNetAdminArticleDropPipeline': 200,
+    'gotcha.pipelines.CorrectedImageUrlsForImagesPipeline': 250,
     'gotcha.pipelines.MySqlPipeline': 300,
 }
 
@@ -181,6 +182,20 @@ RETRY_ENABLED = True
 RETRY_HTTP_CODES = [408, 500, 502, 503, 504]
 
 RETRY_TIMES = 3
+
+IMAGES_STORE = 'images'
+
+IMAGES_URLS_FIELD = 'image_urls'
+
+IMAGES_RESULT_FIELD = 'images'
+
+IMAGES_THUMBS = {
+    'small': (80, 80),
+}
+
+IMAGES_MIN_HEIGHT = 0
+
+IMAGES_MIN_WIDTH = 0
 
 MYSQL_HOST = 'localhost'
 
